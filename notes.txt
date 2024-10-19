@@ -1,0 +1,38 @@
+const express = require("express");
+
+const app = express();
+
+//app.use will match all http methods
+app.use('/test/abc',(req,res)=>{
+   res.send('abc path from test route')
+})
+
+app.get('/test', (req, res) => {
+    res.send('You are connected to Tinder Server')
+})
+app.post('/test',(req,res)=>{
+    res.send('You have posted some tst request')
+})
+
+app.post('/user',(req,res)=>{
+    res.send({fname:'dinesh',lname:'chittala'})
+})
+
+app.get('/user',(req,res)=>{
+    if(req.query){
+        const {id,name}=req.query;
+        res.end(`user id is ${id} and name is ${name}`)
+    }
+    res.send({fname:'dinesh',lname:'chittala'})
+})
+
+app.get('/books/:bookId',(req,res)=>{
+    res.send(`Book Number ${req.params.bookId} is requested`)
+
+})
+
+app.use('/', (req, res) => {
+    res.send('Hello from the dashboard !!')
+})
+
+app.listen(8000, () => console.log('server running successful at 8000'))
